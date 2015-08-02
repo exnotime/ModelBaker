@@ -1,0 +1,16 @@
+stringCount #
+strings
+	hash + fixed byte array[256]
+ModelCount #
+Models
+	model + meshcount + meshoffset
+meshCount #
+Meshes
+materialCount #
+materials
+	mat 
+vertices data
+indices data
+
+
+	
