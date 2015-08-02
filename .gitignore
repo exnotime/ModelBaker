@@ -1,3 +1,7 @@
+# build files
+ModelBaker/debug/
+ModelBaker/release/
+
 # C++ objects and libs
 
 *.slo

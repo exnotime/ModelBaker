@@ -3,6 +3,7 @@
 #include "FileUtility.h"
 #include <QFileDialog>
 #include <QTableWidgetItem>
+#include <qmessagebox.h>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -31,7 +32,9 @@ void MainWindow::AddModelToTable(int row, gfx::Model model)
 
 void MainWindow::on_pushButton_clicked()
 {
-   QString fn = QFileDialog::getOpenFileName(this,tr("Open file..."), QString(),tr("Model files (*.dae *.obj);;All files (*)"));
+   QString fn = QFileDialog::getOpenFileName(this,tr("Open file..."), QDir::currentPath(),tr("Model files (*.dae *.obj);;All files (*)"));
+   if(fn == "")
+       return;
    if(m_Loader.LoadModel(fn.toLocal8Bit().constData())){
         static int counter = 0;
 
@@ -57,7 +60,8 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_BakeButton_clicked()
 {
-
+    QFileDialog* dialog = new QFileDialog();
+    QString file = dialog->getSaveFileName(this,"Save file", QDir::currentPath(), "binary file (*.kbm)");
 }
 
 void MainWindow::on_ModelTable_cellActivated(int row, int column)
@@ -96,4 +100,9 @@ void MainWindow::on_ModelTable_cellClicked(int row, int column)
 void MainWindow::on_actionExit_triggered()
 {
     exit(0);
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox::information(this, "About", "Made by Henrik Johansson 2015");
 }

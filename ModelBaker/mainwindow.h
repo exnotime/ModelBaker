@@ -31,6 +31,7 @@ private slots:
     void on_ModelTable_cellActivated(int row, int column);
     void on_ModelTable_cellClicked(int row, int column);
     void on_actionExit_triggered();
+    void on_actionAbout_triggered();
 };
 
 #endif // MAINWINDOW_H

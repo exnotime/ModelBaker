@@ -41,6 +41,17 @@ gfx::Model &ModelLoader::GetModel(const std::string& name)
 void ModelLoader::Serialize(const char* filename)
 {
     //serialize models
+    //collect strings
+    std::map<int ,std::string> strings;
+    //models name
+    std::string str;
+    std::hash<std::string> hasher;
+    for(auto& it : m_Models){
+        str = GetFilenameFromPath(it.second.Name);
+        int hash = hasher(str);
+        strings[hash] = str;
+    }
+
 }
 
 void ModelLoader::LoadMeshes(gfx::Model &model, const aiScene *scene)
