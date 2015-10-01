@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = GL
+TARGET = ModelBaker
 TEMPLATE = app
 
 
@@ -21,12 +21,13 @@ HEADERS  += mainwindow.h \
     Material.h \
     Model.h \
     Vertex.h \
-    FileUtility.h
+    FileUtility.h \
+    hash.h
 
 FORMS    += mainwindow.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/lib/ -lassimp
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/ -lassimpd
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/ -lassimp
 else:unix: LIBS += -L$$PWD/lib/ -lassimp
 
 INCLUDEPATH += $$PWD/include
@@ -37,3 +38,5 @@ else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/lib/libassi
 else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/lib/assimp.lib
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/lib/assimpd.lib
 else:unix: PRE_TARGETDEPS += $$PWD/lib/libassimp.a
+
+QMAKE_CXXFLAGS += -std=c++0x

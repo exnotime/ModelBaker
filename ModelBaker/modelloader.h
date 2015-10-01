@@ -25,6 +25,8 @@ public:
         return m_Materials.at(index);
     }
 
+    size_t CalcModelSize(const gfx::Model& model);
+
 private:
     void LoadMeshes(gfx::Model& model, const aiScene* scene);
     void LoadMaterials(gfx::Model& model,const char* filename, const aiScene* scene);

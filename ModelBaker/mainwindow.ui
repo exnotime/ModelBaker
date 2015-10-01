@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1063</width>
-    <height>412</height>
+    <height>433</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -130,6 +130,19 @@
       <string>Metal</string>
      </property>
     </column>
+   </widget>
+   <widget class="QLabel" name="FileSizeLabel">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>360</y>
+      <width>181</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Total file size:</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

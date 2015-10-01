@@ -3,7 +3,18 @@
 #include "FileUtility.h"
 #include <QFileDialog>
 #include <QTableWidgetItem>
-#include <qmessagebox.h>
+#include <sstream>
+
+namespace patch
+{
+    template < typename T > std::string to_string( const T& n )
+    {
+        std::ostringstream stm ;
+        stm << n ;
+        return stm.str() ;
+    }
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -20,9 +31,12 @@ MainWindow::~MainWindow()
 void MainWindow::AddModelToTable(int row, gfx::Model model)
 {
     QTableWidgetItem* name = new QTableWidgetItem(tr(GetFilenameFromPath(model.Name).c_str()));
-    QTableWidgetItem* vCount = new QTableWidgetItem(tr(std::to_string(model.NumVertices).c_str()));
-    QTableWidgetItem* iCount = new QTableWidgetItem(tr(std::to_string(model.NumIndices).c_str()));
-    QTableWidgetItem* size = new QTableWidgetItem(tr(std::to_string(512).c_str()));
+    QTableWidgetItem* vCount = new QTableWidgetItem(tr(patch::to_string(model.NumVertices).c_str()));
+    QTableWidgetItem* iCount = new QTableWidgetItem(tr(patch::to_string(model.NumIndices).c_str()));
+    std::stringstream ssout;
+    ssout << m_Loader.CalcModelSize(model) / (float)(1024 * 1024); //recalc to MB
+    ssout << " MB";
+    QTableWidgetItem* size = new QTableWidgetItem(tr(ssout.str().c_str()));
     ui->ModelTable->insertRow(row);
     ui->ModelTable->setItem(row,0, name);
     ui->ModelTable->setItem(row,1, vCount);
@@ -104,5 +118,5 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox::information(this, "About", "Made by Henrik Johansson 2015");
+    //QMessageBox::information(this, "About", "Made by Henrik Johansson 2015");
 }

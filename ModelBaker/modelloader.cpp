@@ -3,7 +3,7 @@
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 #include "fileutility.h"
-
+#include "hash.h"
 ModelLoader::ModelLoader()
 {
 
@@ -42,16 +42,24 @@ void ModelLoader::Serialize(const char* filename)
 {
     //serialize models
     //collect strings
-    std::map<int ,std::string> strings;
+    std::map<unsigned int ,std::string> strings;
     //models name
     std::string str;
-    std::hash<std::string> hasher;
+
     for(auto& it : m_Models){
         str = GetFilenameFromPath(it.second.Name);
-        int hash = hasher(str);
+        unsigned int hash = HashString(str.c_str());
         strings[hash] = str;
     }
 
+}
+
+size_t ModelLoader::CalcModelSize(const gfx::Model &model)
+{
+    size_t size = 0;
+    size += model.NumVertices * sizeof(gfx::VertexPosNormalTexTangent);
+    size += model.NumIndices * sizeof(unsigned int);
+    return size;
 }
 
 void ModelLoader::LoadMeshes(gfx::Model &model, const aiScene *scene)
